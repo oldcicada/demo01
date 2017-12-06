@@ -13,6 +13,9 @@
 		var firstDayWeekDay = firstDay.getDay();
 		if(firstDayWeekDay === 0) firstDayWeekDay = 7;
 
+		year =firstDay.getFullYear();
+		month=firstDay.getMonth()+1;
+
 		var lastDayOfLastMonth = new Date(year,month-1,0);
 		var lastDayOfLastMonth = lastDayOfLastMonth.getDate();
 
@@ -42,7 +45,11 @@
 				showDate:showDate 
 			});
 		}
-		return res;
+		return {
+			year:year,
+			month:month,
+			days:res
+		};
 	};
 
 	window.datepicker = datepicker;
