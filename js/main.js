@@ -39,9 +39,11 @@
 
 	return html;
 	};		
-	datepicker.init = function($dom){
-		var html= datepicker.buildUi();
-		$dom.innerHTML = html;
-	};
-
+	datepicker.init = function($input){
+		var html = datepicker.buildUi();
+		var $wrapper = document.createElement('div');
+			$wrapper.className ='ui-datepicker-wrapper';
+			$wrapper.innerHTML = html;
+			document.body.appendChild($wrapper);
+	};		
 })();
