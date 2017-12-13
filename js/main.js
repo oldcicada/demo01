@@ -39,11 +39,28 @@
 
 	return html;
 	};		
-	datepicker.init = function($input){
+	datepicker.init = function(input){
 		var html = datepicker.buildUi();
 		var $wrapper = document.createElement('div');
 			$wrapper.className ='ui-datepicker-wrapper';
 			$wrapper.innerHTML = html;
 			document.body.appendChild($wrapper);
+		var $input = document.querySelector('.ui-datepicker-text');
+		var state = false;
+		$input.addEventListener("click", 
+			function(){
+			if (state) {//判断是否开启状态
+				 $wrapper.classList.remove('ui-datepicker-wrapper-show');
+				 state = false;
+			}else{
+				$wrapper.classList.add('ui-datepicker-wrapper-show');
+				var left = $input.offsetLeft;
+				var right = $input.offsetTop;
+				var height = $input.offsetHeight;
+				$wrapper.style.top = top + height +2 +'px';
+				$wrapper.style.left = left + 'px';
+				state = true;
+			}
+},false);
 	};		
 })();
