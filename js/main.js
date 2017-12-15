@@ -30,7 +30,7 @@
 			for (var i = 0; i < monthDate.days.length; i++) {
 				var date  = monthDate.days[i];
 				if(i%7===0){ html+='<tr>'}
-				html += '<td>' + date.showDate + '</td>';	
+				html += '<td data-date="'+date.date+'">' + date.showDate + '</td>';	
 				if(i%7===6){ html+='</tr>'}	
 				}
 		
@@ -59,7 +59,18 @@
 		}
 		$wrapper.innerHTML = html;
 	};
-
+		function format(date){
+				ret='';
+				function padding(num){
+					if(num<=9){
+						return '0'+num;
+					}else return num;
+				}
+				ret+=date.getFullYear()+"-";
+				ret+=padding(date.getMonth()+1)+'-';
+				ret+=padding(date.getDate());
+				return ret;
+			}
 	datepicker.init = function(input){
 		datepicker.view();
 		var $input = document.querySelector(input);
@@ -89,6 +100,13 @@
 		}else if($target.classList.contains('ui-datepicker-next-btn')){
 			datepicker.view('next');
 		}
+	},false);
+
+	$wrapper.addEventListener('click',function(e){
+		var $target=e.target;
+		if($target.tagName.toLowerCase()!=='td'){return;}
+		var date= new Date(monthDate.year,monthDate.month-1,$target.dataset.date);
+		$input.value=format(date);
 	},false);
 
 	};		
